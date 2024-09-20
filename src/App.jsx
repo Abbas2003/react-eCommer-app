@@ -26,11 +26,10 @@ function App() {
           <Route path="/" element={<Dashboard />}>
             <Route index element={<Home />} />
             <Route path="/products" element={<Products />} />
-            <Route path="/products/:id" element={<ProductDetail />} />
+            <Route path="/product/:id" element={<ProductDetail />} />
             <Route path="/carts" element={<Carts />} />
             <Route path="/orders" element={<Orders />} />
           </Route>
-
         </Routes>
       </BrowserRouter>
     </>

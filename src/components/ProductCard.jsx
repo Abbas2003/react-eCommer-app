@@ -1,8 +1,16 @@
-import React from 'react';
-import { Col, Image, Skeleton } from 'antd';
+import React, { useContext } from 'react';
+import { Button, Col, Image, Skeleton } from 'antd';
+import { CartContext } from '../context/CartContext';
+import { Link } from 'react-router-dom';
+import { ShoppingCartOutlined } from '@ant-design/icons';
 
 const ProductCard = ({ item, loading }) => {
-  const { thumbnail, title, price } = item || {};
+
+  const { thumbnail, title, price, id } = item || {};
+
+
+  const { isItemAdded } = useContext(CartContext)
+  const isAdded = isItemAdded(id) ? true : false;
 
   return (
     <Col sm={24} md={12} lg={8} xl={6}>
@@ -19,11 +27,16 @@ const ProductCard = ({ item, loading }) => {
         ) : (
           // Show product details when not loading
           <>
-            <Image preview={true} src={thumbnail} height={200} />
-            <div className="flex justify-between p-3 w-full">
-              <h1 className="font-semibold">{title}</h1>
-              <h1 className="font-semibold">${price}</h1>
-            </div>
+            <Link to={`/product/${id}`}>
+            {isAdded && (
+            <ShoppingCartOutlined className="text-3xl absolute top-5 right-5" />
+          )}
+              <Image preview={false} src={thumbnail} height={200} />
+              <div className="flex justify-between p-3 w-full">
+                <h1 className="font-semibold">{title}</h1>
+                <h1 className="font-semibold">${price}</h1>
+              </div>
+            </Link>
           </>
         )}
       </div>

@@ -1,8 +1,9 @@
 import { Button, Input, Pagination, Row, Select } from 'antd'
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import ProductCard from '../components/ProductCard'
 import { SearchOutlined } from '@ant-design/icons'
+import { CartContext } from '../context/CartContext'
 
 
 const Products = () => {
@@ -13,6 +14,10 @@ const Products = () => {
   const [limit, setLimit] = useState(20)
   const [total, setTotal] = useState(20)
   const [loading, setLoading] = useState(true)
+
+  const {cartItems, addItemToCart} = useContext(CartContext)
+  // console.log("cartItems =>", cartItems);
+  
 
   useEffect(() => {
     axios
@@ -65,6 +70,7 @@ const Products = () => {
         ) : (
           // Show product cards when data is loaded
           products.map((data) => (
+            // console.log("data =>", data),
             <ProductCard key={data.id} item={data} />
           ))
         )}
